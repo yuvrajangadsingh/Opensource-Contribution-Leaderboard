@@ -44,7 +44,7 @@ submit.addEventListener('click', () => {
 
             contributors = sortByAlphabet(contributors, 'username')
 
-            totalTd.innerHTML = 'Total: ' + contributors.length
+            totalTd.textContent = 'Total: ' + contributors.length
 
             contributors.forEach( contributor => {
                 const { username, avatarUrl } = contributor
@@ -59,10 +59,17 @@ submit.addEventListener('click', () => {
                 avatarTd.appendChild(avatarImg)
 
                 const usernameTd = document.createElement('td')
-                usernameTd.innerHTML = `<a href="${usernameLink}">${username}</a>`
+                const usernameA = document.createElement('a')
+                usernameA.href = usernameLink
+                usernameA.textContent = username
+                usernameTd.appendChild(usernameA)
 
                 const removeTd = document.createElement('td')
-                removeTd.innerHTML = `<div class="button remove" value="${username}">Remove</div>`
+                const removeDiv = document.createElement('div')
+                removeDiv.className = 'button remove'
+                removeDiv.setAttribute('value', username)
+                removeDiv.textContent = 'Remove'
+                removeTd.appendChild(removeDiv)
 
                 tr.appendChild(avatarTd)
                 tr.appendChild(usernameTd)
@@ -100,7 +107,7 @@ submit.addEventListener('click', () => {
                         checkboxTd.appendChild(checkbox)
                         
                         const repositoryTd = document.createElement('td')
-                        repositoryTd.innerHTML = repoName
+                        repositoryTd.textContent = repoName
                         repositoryTd.style.textAlign = 'right'
 
                         repoRow.appendChild(repositoryTd)
@@ -245,7 +252,7 @@ submit.addEventListener('click', () => {
                             }
                         })
                         
-                        totalTd.innerHTML = 'Total: ' + contributors.length
+                        totalTd.textContent = 'Total: ' + contributors.length
 
                         const { avatarUrl } = contributors[insertPos]
                         const usernameLink = 'https://github.com/' + username
@@ -259,11 +266,18 @@ submit.addEventListener('click', () => {
                         avatarTd.appendChild(avatarImg)
         
                         const usernameTd = document.createElement('td')
-                        usernameTd.innerHTML = `<a href="${usernameLink}">${username}</a>`
-                        
+                        const usernameA = document.createElement('a')
+                        usernameA.href = usernameLink
+                        usernameA.textContent = username
+                        usernameTd.appendChild(usernameA)
+
                         const removeTd = document.createElement('td')
-                        removeTd.innerHTML = `<div class="button remove" value="${username}">Remove</div>`
-                        removeTd.firstChild.addEventListener('click', e => {
+                        const removeDiv = document.createElement('div')
+                        removeDiv.className = 'button remove'
+                        removeDiv.setAttribute('value', username)
+                        removeDiv.textContent = 'Remove'
+                        removeTd.appendChild(removeDiv)
+                        removeDiv.addEventListener('click', e => {
                             removeContributor(e, contributors, totalTd)
                         })
         
@@ -345,7 +359,7 @@ function removeContributor(e, contributors, totalTd) {
                         object.splice(index, 1)
                     }
                 })
-                totalTd.innerHTML = 'Total: ' + contributors.length
+                totalTd.textContent = 'Total: ' + contributors.length
 
                 layer.closeAll('dialog')
             } else {
